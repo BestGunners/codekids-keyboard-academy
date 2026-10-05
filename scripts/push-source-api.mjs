@@ -85,7 +85,12 @@ let uploaded = 0
 for (const item of index) {
   let sha = item.sha
   if (remote.get(item.path) !== item.sha) {
-    const content = readFileSync(join(root, item.path)).toString('base64')
+    // 直接从 git 取内容：这样传上去的哈希和本地索引一致，
+    // 不会因为换行符（CRLF/LF）不同导致两边的树对不上
+    const content = execFileSync('git', ['cat-file', 'blob', item.sha], {
+      cwd: root,
+      maxBuffer: 64 * 1024 * 1024,
+    }).toString('base64')
     const blob = await call('/repos/' + REPO + '/git/blobs', {
       method: 'POST',
       body: JSON.stringify({ content, encoding: 'base64' }),
