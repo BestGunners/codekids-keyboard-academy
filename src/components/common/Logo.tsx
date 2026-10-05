@@ -1,3 +1,4 @@
+import { assetUrl } from '@/utils/asset'
 import { cn } from '@/utils/cn'
 
 export interface LogoProps {
@@ -12,7 +13,7 @@ export function Logo({ size = 44, showWordmark = true, animated = false, classNa
   return (
     <span className={cn('flex items-center gap-2', className)}>
       <img
-        src="/hedgehog.png"
+        src={assetUrl('hedgehog.png')}
         alt="键盘小侠"
         width={size}
         height={size}

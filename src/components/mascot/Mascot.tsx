@@ -1,3 +1,4 @@
+import { assetUrl } from '@/utils/asset'
 import { cn } from '@/utils/cn'
 
 export type MascotMood = 'idle' | 'happy' | 'oops' | 'cheer' | 'think'
@@ -30,7 +31,7 @@ export function Mascot({ mood = 'idle', size = 96, className }: MascotProps) {
       style={{ width: size, height: size }}
     >
       <img
-        src="/hedgehog.png"
+        src={assetUrl('hedgehog.png')}
         alt="小刺猬"
         width={size}
         height={size}

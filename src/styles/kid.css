@@ -413,5 +413,5 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url('/fonts/zcool-kuaile.woff2') format('woff2');
+  src: url('../assets/fonts/zcool-kuaile.woff2') format('woff2');
 }

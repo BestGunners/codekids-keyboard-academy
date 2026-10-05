@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "deploy:pages": "node scripts/publish-pages-api.mjs",
+    "deploy:pages:git": "node scripts/publish-pages.mjs"
   },
   "dependencies": {
     "@fontsource-variable/noto-sans-sc": "^5.3.0",
