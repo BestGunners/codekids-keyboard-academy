@@ -171,7 +171,9 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
       </div>
 
       <div className="grid gap-3 lg:grid-cols-[1.9fr_1fr]">
-        <div className="relative space-y-3">
+        {/* 提示浮层是绝对定位的装饰，间距改用显式 mt-3 写死，
+            免得它一出现就让下面文字框被挤下去 */}
+        <div className="relative">
           {celebration ? (
             <div className="anim-pop-in pointer-events-none absolute -top-3 left-1/2 z-20 -translate-x-1/2 rounded-2xl bg-[#ffd95c] px-5 py-1.5 text-lg font-extrabold text-[#8a6410] shadow-pop">
               {celebration}
@@ -187,9 +189,11 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
             pinyinTyped={session.state.pinyinTyped}
           />
 
-          <PinyinBar task={session.pinyinTask} />
+          <div className="mt-3">
+            <PinyinBar task={session.pinyinTask} />
+          </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="mt-3 flex flex-wrap items-center gap-3">
             <ComboMeter streak={streak} milestone={celebration !== null} />
             <TypingStatsPanel
               stats={session.stats}
