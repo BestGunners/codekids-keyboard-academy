@@ -13,7 +13,7 @@ export function Logo({ size = 44, showWordmark = true, animated = false, classNa
   return (
     <span className={cn('flex items-center gap-2', className)}>
       <img
-        src={assetUrl('hedgehog.png')}
+        src={assetUrl('logo.svg')}
         alt="敲敲岛"
         width={size}
         height={size}

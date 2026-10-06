@@ -31,7 +31,7 @@ export function Mascot({ mood = 'idle', size = 96, className }: MascotProps) {
       style={{ width: size, height: size }}
     >
       <img
-        src={assetUrl('hedgehog.png')}
+        src={assetUrl('logo.svg')}
         alt="小刺猬"
         width={size}
         height={size}
