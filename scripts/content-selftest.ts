@@ -56,19 +56,21 @@ function untypeableChars(text: string): string[] {
 
 const lessons = STAGES.flatMap((stage) => stage.lessons)
 
-console.log('\n1. 五个岛都能一路玩下去')
+console.log('\n1. 每个板块都能一路玩下去')
 {
-  STAGES.forEach((stage) => {
+  STAGES.forEach((stage, index) => {
     const notReady = stage.lessons.filter((lesson) => !lesson.ready)
     check(
-      `第 ${stage.id} 岛 ${stage.lessons.length} 关全部有题目`,
+      `第 ${index + 1} 个板块「${stage.title}」${stage.lessons.length} 关全部有题目`,
       notReady.length === 0,
       notReady.length > 0 ? `还有 ${notReady.length} 关没内容：${notReady.map((l) => l.order).join(',')}` : '',
     )
   })
 
   check('所有岛都处于开放状态', STAGES.every((stage) => stage.available))
-  check('关卡总数为 84（5 个岛 64 关 + 中文岛 20 关）', lessons.length === 84, String(lessons.length))
+  check('关卡总数为 90（键盘入门 6 关 + 5 个岛 64 关 + 中文岛 20 关）', lessons.length === 90, String(lessons.length))
+  check('第一个板块是「认识键盘」', STAGES[0]?.id === 7 && STAGES[0]?.lessons[0]?.kind === 'intro', String(STAGES[0]?.title))
+  check('第一个板块教的是键盘与手指（题量少、目标速度慢）', (STAGES[0]?.lessons.length ?? 0) >= 5 && (STAGES[0]?.lessons[0]?.targetWpm ?? 99) <= 7)
 }
 
 console.log('\n2. 每关结构完整')

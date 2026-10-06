@@ -1,4 +1,5 @@
 import type { Drill, Lesson, LessonKind, Stage } from '@/types/course'
+import { STAGE_KEYBOARD_BASICS } from './keyboardBasics.ts'
 import { STAGE_2_TAIL, STAGE_3_TAIL } from './coursesExtra.ts'
 import { STAGE_4_SEEDS, STAGE_4_TAIL, STAGE_5_SEEDS, STAGE_5_TAIL } from './codeLessons.ts'
 import { STAGE_6_SEEDS } from './chineseLessons.ts'
@@ -266,6 +267,18 @@ const STAGE_3_SEEDS: LessonSeed[] = [
 ]
 
 export const STAGES: Stage[] = [
+  {
+    // 内部 id 用 7：新板块排在最前面，但不去改动其它岛的关卡编号，
+    // 这样孩子已有的星星进度不会错位（显示时按列表顺序编号）
+    id: 7,
+    code: 'keyboard-basics',
+    title: '认识键盘',
+    subtitle: '坐姿、手位、每根手指管哪些键',
+    emoji: '⌨️',
+    gradient: 'from-brand-400/70 to-candy-mint/70',
+    available: true,
+    lessons: STAGE_KEYBOARD_BASICS.map((seed, index) => buildLesson(7, index + 1, seed)),
+  },
   {
     id: 1,
     code: 'keyboard-meadow',

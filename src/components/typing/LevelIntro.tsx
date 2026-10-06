@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Icon } from '@/components/icons/Icon'
 import { Mascot } from '@/components/mascot/Mascot'
+import { STAGES } from '@/data/courses'
 import { getCharKeyInfo } from '@/engine/keyMap'
+import { stageNumber } from '@/engine/progress'
 import { sfx } from '@/engine/sfx'
 import type { Lesson } from '@/types/course'
 
@@ -57,7 +59,7 @@ export function LevelIntro({ lesson, onStart, onBack }: LevelIntroProps) {
 
       <div className="space-y-1">
         <div className="font-mono text-xs font-bold tracking-wide text-ink-faint">
-          第 {lesson.stageId} 岛 · 第 {lesson.order} 关
+          第 {stageNumber(STAGES, lesson.stageId)} 岛 · 第 {lesson.order} 关
         </div>
         <h1 className="font-display text-3xl font-extrabold">{lesson.title}</h1>
       </div>

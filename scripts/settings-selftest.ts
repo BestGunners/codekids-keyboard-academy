@@ -25,6 +25,12 @@ console.log('\n1. 声音设置')
   check('默认开启声音', settings.soundEnabled === true)
   check('默认开启全局点击音效', settings.clickSoundsEnabled === true)
   check('默认音量 0.8', Math.abs(settings.volume - 0.8) < 1e-9, String(settings.volume))
+  check('默认显示模拟键盘', settings.keyboardVisible === true)
+
+  useSettingsStore.getState().toggleKeyboard()
+  check('模拟键盘开关可以翻转', useSettingsStore.getState().keyboardVisible === false)
+  useSettingsStore.getState().toggleKeyboard()
+  check('再点一次就恢复显示', useSettingsStore.getState().keyboardVisible === true)
 
   useSettingsStore.getState().toggleSound()
   check('静音开关可以翻转', useSettingsStore.getState().soundEnabled === false)

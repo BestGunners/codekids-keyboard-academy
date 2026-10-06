@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card } from '@/components/common/Card'
+import { Switch } from '@/components/common/Switch'
 import { Icon } from '@/components/icons/Icon'
 import { FingerHint } from '@/components/keyboard/FingerHint'
+import { FingerMap } from '@/components/keyboard/FingerMap'
 import { VirtualKeyboard } from '@/components/keyboard/VirtualKeyboard'
 import { Mascot, type MascotMood } from '@/components/mascot/Mascot'
 import { CodeStage } from '@/components/stage/CodeStage'
@@ -18,6 +20,7 @@ import { sfx } from '@/engine/sfx'
 import type { SessionState } from '@/engine/typingEngine'
 import { useTypingSession } from '@/hooks/useTypingSession'
 import { ageBandOf, type ChildProfile } from '@/store/childStore'
+import { useSettingsStore } from '@/store/settingsStore'
 import type { Lesson } from '@/types/course'
 import type { AttemptSummary } from '@/types/typing'
 import { cn } from '@/utils/cn'
@@ -37,6 +40,9 @@ const STAGE_LESSON_KINDS = ['symbols', 'code', 'game']
  */
 export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
   const navigate = useNavigate()
+  // 下方的模拟键盘可以隐藏（设置存在本地，下次进来保持上次的选择）
+  const keyboardVisible = useSettingsStore((state) => state.keyboardVisible)
+  const toggleKeyboard = useSettingsStore((state) => state.toggleKeyboard)
   const [drillIndex, setDrillIndex] = useState(0)
   const [mood, setMood] = useState<MascotMood>('idle')
   const [celebration, setCelebration] = useState<string | null>(null)
@@ -205,6 +211,13 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
 
         {hasStage ? (
           <CodeStage part={activePart} discovered={discovered} className="h-[186px] overflow-hidden" />
+        ) : lesson.kind === 'intro' ? (
+          <Card className="h-[210px] space-y-2 overflow-hidden p-3">
+            <div className="text-[11px] font-extrabold text-ink-soft">
+              手指分工 · 亮起来的就是该用的手指
+            </div>
+            <FingerMap targetChar={targetChar} />
+          </Card>
         ) : (
           <Card className="h-[186px] space-y-2 overflow-hidden p-3">
             <div className="text-[11px] font-extrabold text-ink-soft">本关重点</div>
@@ -222,7 +235,15 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
         )}
       </div>
 
-      <FingerHint char={targetChar} level={session.hintLevel} onSkip={session.skip} />
+      <div className="flex flex-wrap items-center gap-2">
+        <FingerHint
+          char={targetChar}
+          level={session.hintLevel}
+          onSkip={session.skip}
+          className="min-w-0 flex-1"
+        />
+        <Switch checked={keyboardVisible} onChange={toggleKeyboard} label="模拟键盘" />
+      </div>
 
       {session.imeActive || session.capsLock ? (
         <div className="pointer-events-none fixed left-1/2 top-20 z-50 w-[min(92vw,520px)] -translate-x-1/2 space-y-2">
@@ -239,9 +260,11 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
         </div>
       ) : null}
 
-      <Card className="p-2">
-        <VirtualKeyboard targetChar={targetChar} lastStroke={session.lastStroke} size="sm" />
-      </Card>
+      {keyboardVisible ? (
+        <Card className="p-2">
+          <VirtualKeyboard targetChar={targetChar} lastStroke={session.lastStroke} size="sm" />
+        </Card>
+      ) : null}
 
       {drillClear ? (
         <div className="anim-pop-in pointer-events-none fixed inset-0 z-40 flex items-center justify-center">

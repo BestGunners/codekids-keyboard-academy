@@ -5,6 +5,8 @@ import { ProgressBar } from '@/components/common/ProgressBar'
 import { Icon } from '@/components/icons/Icon'
 import { Confetti } from '@/components/fx/Confetti'
 import { Mascot } from '@/components/mascot/Mascot'
+import { STAGES } from '@/data/courses'
+import { stageNumber } from '@/engine/progress'
 import { getBadge } from '@/data/badges'
 import { sfx } from '@/engine/sfx'
 import type { Lesson } from '@/types/course'
@@ -120,7 +122,7 @@ export function TypingResult({
 
           <div className="space-y-1">
             <div className="text-xs font-extrabold text-ink-soft">
-              第 {lesson.stageId} 岛 · 第 {lesson.order} 关
+              第 {stageNumber(STAGES, lesson.stageId)} 岛 · 第 {lesson.order} 关
             </div>
             <div className="font-display text-2xl font-extrabold text-brand-700">{cheer}</div>
             <div className="flex justify-center gap-2 pt-1">

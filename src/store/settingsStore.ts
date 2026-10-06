@@ -7,9 +7,12 @@ interface SettingsState {
   clickSoundsEnabled: boolean
   /** 0 - 1，默认 0.8 */
   volume: number
+  /** 打字时是否显示下方的模拟键盘（默认显示） */
+  keyboardVisible: boolean
   toggleSound: () => void
   toggleClickSounds: () => void
   setVolume: (value: number) => void
+  toggleKeyboard: () => void
 }
 
 /** 孩子的偏好设置：声音开关与音量（校内使用时可以一键静音）。 */
@@ -19,7 +22,9 @@ export const useSettingsStore = create<SettingsState>()(
       soundEnabled: true,
       clickSoundsEnabled: true,
       volume: 0.8,
+      keyboardVisible: true,
       toggleSound: () => set({ soundEnabled: !get().soundEnabled }),
+      toggleKeyboard: () => set({ keyboardVisible: !get().keyboardVisible }),
       toggleClickSounds: () => set({ clickSoundsEnabled: !get().clickSoundsEnabled }),
       setVolume: (value) => set({ volume: Math.min(1, Math.max(0, value)) }),
     }),

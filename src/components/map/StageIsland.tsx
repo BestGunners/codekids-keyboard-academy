@@ -2,7 +2,8 @@ import { Card } from '@/components/common/Card'
 import { ProgressBar } from '@/components/common/ProgressBar'
 import { Icon } from '@/components/icons/Icon'
 import { LessonNode } from '@/components/map/LessonNode'
-import { getLessonStatus, getNextLesson, getStageStats } from '@/engine/progress'
+import { STAGES } from '@/data/courses'
+import { getLessonStatus, getNextLesson, getStageStats, stageNumber } from '@/engine/progress'
 import type { LessonProgress, Stage } from '@/types/course'
 import { cn } from '@/utils/cn'
 
@@ -22,7 +23,7 @@ export function StageIsland({ stage, progress, onSelectLesson }: StageIslandProp
         <div className="flex items-center gap-3">
           <span className="text-3xl grayscale">{stage.emoji}</span>
           <span className="text-lg font-extrabold text-ink-soft">
-            第 {stage.id} 岛 · {stage.title}
+            第 {stageNumber(STAGES, stage.id)} 岛 · {stage.title}
           </span>
         </div>
         <span className="inline-flex items-center gap-1.5 text-sm font-bold text-ink-faint"><Icon name="lock" size={14} /> 还没开放</span>
@@ -46,7 +47,7 @@ export function StageIsland({ stage, progress, onSelectLesson }: StageIslandProp
           </span>
           <div className="leading-tight">
             <div className="font-display text-xl font-extrabold">
-              第 {stage.id} 岛 · {stage.title}
+              第 {stageNumber(STAGES, stage.id)} 岛 · {stage.title}
             </div>
             <div className="text-sm font-bold text-ink-soft">
               已通关 {stats.completed}/{stats.total}

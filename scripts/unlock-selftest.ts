@@ -43,6 +43,9 @@ function progressWith(lessonIds: string[], stars = 1): Record<string, LessonProg
 
 const stageOne = STAGES[0]
 const ids = stageOne.lessons.map((lesson) => lesson.id)
+// 顺序解锁用关卡更多的岛来验证（第一个板块「认识键盘」只有 6 关）
+const longStage = STAGES.find((stage) => stage.lessons.length >= 10) ?? stageOne
+const longIds = longStage.lessons.map((lesson) => lesson.id)
 
 console.log(`\n1. 每个岛一开始只开放前 ${FREE_START_LESSONS} 关`)
 {
@@ -82,26 +85,26 @@ console.log('\n2. 内容没做好的关卡仍然会被锁住（守门规则）')
 
 console.log('\n3. 通过前 3 关后，第 4 关开启')
 {
-  const firstThree = progressWith(ids.slice(0, 3))
-  check('通过前 3 关后，第 4 关开启', getLessonStatus(stageOne, 3, firstThree) === 'unlocked')
-  check('但第 5 关仍然锁着', getLessonStatus(stageOne, 4, firstThree) === 'locked')
-  check('只通过 2 关时，第 4 关还是锁的', getLessonStatus(stageOne, 3, progressWith(ids.slice(0, 2))) === 'locked')
+  const firstThree = progressWith(longIds.slice(0, 3))
+  check('通过前 3 关后，第 4 关开启', getLessonStatus(longStage, 3, firstThree) === 'unlocked')
+  check('但第 5 关仍然锁着', getLessonStatus(longStage, 4, firstThree) === 'locked')
+  check('只通过 2 关时，第 4 关还是锁的', getLessonStatus(longStage, 3, progressWith(longIds.slice(0, 2))) === 'locked')
 }
 
 console.log('\n4. 之后每过一关才开下一关（严格按顺序）')
 {
-  const fourDone = progressWith(ids.slice(0, 4))
-  check('通过第 4 关后，第 5 关开启', getLessonStatus(stageOne, 4, fourDone) === 'unlocked')
-  check('第 6 关仍然锁着', getLessonStatus(stageOne, 5, fourDone) === 'locked')
+  const fourDone = progressWith(longIds.slice(0, 4))
+  check('通过第 4 关后，第 5 关开启', getLessonStatus(longStage, 4, fourDone) === 'unlocked')
+  check('第 6 关仍然锁着', getLessonStatus(longStage, 5, fourDone) === 'locked')
 
-  const fiveDone = progressWith(ids.slice(0, 5))
-  check('通过第 5 关后，第 6 关开启', getLessonStatus(stageOne, 5, fiveDone) === 'unlocked')
-  check('第 9 关仍然锁着（不会再一次性全开）', getLessonStatus(stageOne, 8, fiveDone) === 'locked')
-  check('最后一关也要一关一关来', getLessonStatus(stageOne, ids.length - 1, fiveDone) === 'locked')
+  const fiveDone = progressWith(longIds.slice(0, 5))
+  check('通过第 5 关后，第 6 关开启', getLessonStatus(longStage, 5, fiveDone) === 'unlocked')
+  check('第 9 关仍然锁着（不会再一次性全开）', getLessonStatus(longStage, 8, fiveDone) === 'locked')
+  check('最后一关也要一关一关来', getLessonStatus(longStage, longIds.length - 1, fiveDone) === 'locked')
 
   // 跳着玩也不破坏顺序：第 3 关通过后，第 4 关照样开启
-  const onlyThird = progressWith([ids[2]])
-  check('跳着玩时也遵守同一规则', getLessonStatus(stageOne, 3, onlyThird) === 'unlocked')
+  const onlyThird = progressWith([longIds[2]])
+  check('跳着玩时也遵守同一规则', getLessonStatus(longStage, 3, onlyThird) === 'unlocked')
 }
 
 console.log('\n5. 「下一关」跟着当前关卡往后走')

@@ -5,6 +5,15 @@ export type LessonStatus = 'locked' | 'unlocked' | 'completed'
 /** 每个岛的前 3 关直接开放，孩子可以任意顺序开始 */
 export const FREE_START_LESSONS = 3
 
+/**
+ * 岛屿的显示编号：按它在课程列表里的先后从 1 数。
+ * 内部 id 只是稳定标识（例如新板块用 id 7 排在最前面），不参与编号。
+ */
+export function stageNumber(stages: Stage[], stageId: number): number {
+  const index = stages.findIndex((stage) => stage.id === stageId)
+  return index >= 0 ? index + 1 : stageId
+}
+
 
 export function countCompletedLessons(
   stage: Stage,

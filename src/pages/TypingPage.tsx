@@ -10,7 +10,7 @@ import { TypingResult } from '@/components/typing/TypingResult'
 import { TypingStage } from '@/components/typing/TypingStage'
 import { STAGES } from '@/data/courses'
 import { getLessonProgram } from '@/data/programs'
-import { findLesson, getLessonAfter, getTotalStars } from '@/engine/progress'
+import { findLesson, getLessonAfter, getTotalStars, stageNumber } from '@/engine/progress'
 import { levelFromXp, xpFromStars, xpToNextLevel } from '@/engine/rewards'
 import { useProgressStore } from '@/store/progressStore'
 import { useCurrentChild, useLessonProgress } from '@/store/selectors'
@@ -126,7 +126,7 @@ export default function TypingPage() {
 
       {phase === 'run' && program && pending ? (
         <CodeRunner
-          lessonLabel={`第 ${lesson.stageId} 岛 · 第 ${lesson.order} 关 · ${lesson.title}`}
+          lessonLabel={`第 ${stageNumber(STAGES, lesson.stageId)} 岛 · 第 ${lesson.order} 关 · ${lesson.title}`}
           program={program}
           onFinish={finishLesson}
         />
