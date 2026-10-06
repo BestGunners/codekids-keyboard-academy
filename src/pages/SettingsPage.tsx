@@ -295,7 +295,7 @@ const setBgmVolume = useSettingsStore((state) => state.setBgmVolume)
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="font-extrabold">音量大小</span>
+            <span className="font-extrabold">音效音量</span>
             <span className="text-sm font-extrabold text-brand-700">
               {Math.round(volume * 100)}%
             </span>
@@ -309,7 +309,7 @@ const setBgmVolume = useSettingsStore((state) => state.setBgmVolume)
               step={5}
               value={Math.round(volume * 100)}
               data-no-click-sound
-              aria-label="音量大小"
+              aria-label="音效音量"
               onChange={(event) => {
                 const next = Number(event.target.value) / 100
                 setVolume(next)
@@ -334,8 +334,8 @@ const setBgmVolume = useSettingsStore((state) => state.setBgmVolume)
 
         <div className="space-y-4 border-t border-brand-100 pt-4">
           <ToggleRow
-            label="全部声音"
-            description="关掉之后练习时也不会有声音"
+            label="音效"
+            description="打字音、点击音、过关音；背景音乐单独控制"
             checked={soundEnabled}
             onChange={() => {
               toggleSound()
@@ -344,7 +344,7 @@ const setBgmVolume = useSettingsStore((state) => state.setBgmVolume)
           />
           <ToggleRow
             label="全局点击音效"
-            description="点按钮、点图案时的提示音"
+            description="只点按钮、点图案时的提示音"
             checked={clickSoundsEnabled}
             onChange={() => {
               sfx.unlock()

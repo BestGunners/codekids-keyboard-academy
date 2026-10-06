@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Logo } from '@/components/common/Logo'
 import { Icon } from '@/components/icons/Icon'
 import { Modal } from '@/components/common/Modal'
-import { SoundToggle } from '@/components/common/SoundToggle'
+import { MusicToggle } from '@/components/common/MusicToggle'
 import { Mascot } from '@/components/mascot/Mascot'
 import { AVATARS, PATTERN_ICONS, getAvatar } from '@/data/avatars'
 import { sfx } from '@/engine/sfx'
@@ -107,7 +107,7 @@ export default function LoginPage() {
           >
             <Icon name="back" size={14} /> 首页
           </button>
-          <SoundToggle />
+          <MusicToggle />
         </div>
       </div>
 

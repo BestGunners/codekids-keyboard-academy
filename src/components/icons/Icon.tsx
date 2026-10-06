@@ -11,6 +11,7 @@ export type IconName =
   | 'gear'
   | 'sound'
   | 'mute'
+  | 'music'
   | 'star'
   | 'flame'
   | 'lock'
@@ -69,6 +70,13 @@ const PATHS: Record<IconName, ReactNode> = {
     <>
       <path d="M4 10v4h3l4 3.5v-11L7 10H4Z" />
       <path d="m15.5 9.5 5 5M20.5 9.5l-5 5" />
+    </>
+  ),
+  music: (
+    <>
+      <path d="M9 17.5V6.6l9-1.6v10.9" />
+      <circle cx="6.6" cy="17.6" r="2.4" />
+      <circle cx="15.6" cy="15.9" r="2.4" />
     </>
   ),
   star: <path d="m12 3.4 2.6 5.3 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.5l5.9-.8L12 3.4Z" />,

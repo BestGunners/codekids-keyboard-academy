@@ -9,7 +9,7 @@ import { assetUrl } from '@/utils/asset'
  *
  * - 只在"没有在打字"的页面播放（首页 / 地图 / 排行榜 / 设置……），
  *   进打字关自动暂停，离开后从原来的位置接着放；
- * - 受三个设置控制：「全部声音」（总开关）、「背景音乐」（单独开关）、「音乐音量」；
+ * - 受两个设置控制：「背景音乐」开关与「音乐音量」——和"点击音效"完全独立；
  * - 遵守浏览器自动播放策略：小朋友第一次点击或按键之后才开始播；
  * - 切到别的标签页、最小化窗口时自动暂停。
  */
@@ -18,7 +18,6 @@ export function BackgroundMusic() {
   const [armed, setArmed] = useState(false)
   const location = useLocation()
 
-  const soundEnabled = useSettingsStore((state) => state.soundEnabled)
   const bgmEnabled = useSettingsStore((state) => state.bgmEnabled)
   const bgmVolume = useSettingsStore((state) => state.bgmVolume)
 
@@ -33,7 +32,6 @@ export function BackgroundMusic() {
       const settings = useSettingsStore.getState()
       if (
         audio &&
-        settings.soundEnabled &&
         settings.bgmEnabled &&
         shouldPlayMusic(window.location.pathname)
       ) {
@@ -59,7 +57,8 @@ export function BackgroundMusic() {
     const audio = audioRef.current
     if (!audio) return undefined
 
-    const wantPlay = armed && soundEnabled && bgmEnabled && shouldPlayMusic(location.pathname)
+    // 音乐和"点击音效"是两套独立设置：这里只听音乐开关（音量由 bgmVolume 控制）
+    const wantPlay = armed && bgmEnabled && shouldPlayMusic(location.pathname)
 
     const sync = () => {
       if (wantPlay && !document.hidden) {
@@ -72,7 +71,7 @@ export function BackgroundMusic() {
     sync()
     document.addEventListener('visibilitychange', sync)
     return () => document.removeEventListener('visibilitychange', sync)
-  }, [armed, soundEnabled, bgmEnabled, location.pathname])
+  }, [armed, bgmEnabled, location.pathname])
 
   return (
     <audio

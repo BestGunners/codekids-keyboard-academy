@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/common/Button'
 import { Logo } from '@/components/common/Logo'
 import { ProgressBar } from '@/components/common/ProgressBar'
-import { SoundToggle } from '@/components/common/SoundToggle'
+import { MusicToggle } from '@/components/common/MusicToggle'
 import { Backdrop } from '@/components/fx/Backdrop'
 import { Icon, type IconName } from '@/components/icons/Icon'
 import { STAGES } from '@/data/courses'
@@ -98,7 +98,7 @@ export default function HomePage() {
               学习地图
             </Button>
           ) : null}
-          <SoundToggle />
+          <MusicToggle />
         </div>
       </header>
 

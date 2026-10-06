@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '@/components/icons/Icon'
 import { ProgressBar } from '@/components/common/ProgressBar'
-import { SoundToggle } from '@/components/common/SoundToggle'
+import { MusicToggle } from '@/components/common/MusicToggle'
 import { getAvatar } from '@/data/avatars'
 import { STAGES } from '@/data/courses'
 import { getTotalStars } from '@/engine/progress'
@@ -68,7 +68,7 @@ export function KidHeader({ showMapLink = true }: KidHeaderProps) {
             {progress.streak.current}
           </span>
         </span>
-        <SoundToggle />
+        <MusicToggle />
         {showMapLink ? (
           <button
             type="button"
