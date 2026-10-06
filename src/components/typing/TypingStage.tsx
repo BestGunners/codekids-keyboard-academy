@@ -5,6 +5,7 @@ import { Switch } from '@/components/common/Switch'
 import { Icon } from '@/components/icons/Icon'
 import { FingerHint } from '@/components/keyboard/FingerHint'
 import { FingerMap } from '@/components/keyboard/FingerMap'
+import { KeyboardHands } from '@/components/keyboard/KeyboardHands'
 import { VirtualKeyboard } from '@/components/keyboard/VirtualKeyboard'
 import { Mascot, type MascotMood } from '@/components/mascot/Mascot'
 import { CodeStage } from '@/components/stage/CodeStage'
@@ -13,6 +14,7 @@ import { PinyinBar } from '@/components/typing/PinyinBar'
 import { TextStream } from '@/components/typing/TextStream'
 import { TypingStatsPanel } from '@/components/typing/TypingStatsPanel'
 import { WarningBanner } from '@/components/typing/WarningBanner'
+import { STAGES } from '@/data/courses'
 import { addDrillResult, createAccumulator, finalizeAttempt } from '@/engine/attemptAggregator'
 import { findCodePartOccurrences, type CodePart } from '@/engine/codeParts'
 import { comboCheer, isComboMilestone } from '@/engine/rewards'
@@ -43,6 +45,9 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
   // 下方的模拟键盘可以隐藏（设置存在本地，下次进来保持上次的选择）
   const keyboardVisible = useSettingsStore((state) => state.keyboardVisible)
   const toggleKeyboard = useSettingsStore((state) => state.toggleKeyboard)
+  // 第一个板块「认识键盘」：键盘上方多画一双手，孩子一看就知道该用哪根手指
+  const stage = STAGES.find((item) => item.id === lesson.stageId)
+  const showHands = stage?.code === 'keyboard-basics'
   const [drillIndex, setDrillIndex] = useState(0)
   const [mood, setMood] = useState<MascotMood>('idle')
   const [celebration, setCelebration] = useState<string | null>(null)
@@ -261,7 +266,8 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
       ) : null}
 
       {keyboardVisible ? (
-        <Card className="p-2">
+        <Card className="space-y-2 p-2">
+          {showHands ? <KeyboardHands targetChar={targetChar} /> : null}
           <VirtualKeyboard targetChar={targetChar} lastStroke={session.lastStroke} size="sm" />
         </Card>
       ) : null}

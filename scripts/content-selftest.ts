@@ -71,6 +71,19 @@ console.log('\n1. 每个板块都能一路玩下去')
   check('关卡总数为 90（键盘入门 6 关 + 5 个岛 64 关 + 中文岛 20 关）', lessons.length === 90, String(lessons.length))
   check('第一个板块是「认识键盘」', STAGES[0]?.id === 7 && STAGES[0]?.lessons[0]?.kind === 'intro', String(STAGES[0]?.title))
   check('第一个板块教的是键盘与手指（题量少、目标速度慢）', (STAGES[0]?.lessons.length ?? 0) >= 5 && (STAGES[0]?.lessons[0]?.targetWpm ?? 99) <= 7)
+  check(
+    '第二个板块不再重复讲键盘与坐姿（改成练手）',
+    (STAGES[1]?.lessons ?? []).every((lesson) => lesson.kind !== 'intro'),
+  )
+
+  // 第一、二个板块之间不允许出现一模一样的题目（第 41 轮发现过内容重复）
+  const basicsDrills = new Set(
+    (STAGES[0]?.lessons ?? []).flatMap((lesson) => lesson.drills.map((drill) => drill.text)),
+  )
+  const repeatedDrills = (STAGES[1]?.lessons ?? [])
+    .flatMap((lesson) => lesson.drills.map((drill) => drill.text))
+    .filter((text) => basicsDrills.has(text))
+  check('第一、二个板块之间没有一模一样的题目', repeatedDrills.length === 0, repeatedDrills.join(' | '))
 }
 
 console.log('\n2. 每关结构完整')

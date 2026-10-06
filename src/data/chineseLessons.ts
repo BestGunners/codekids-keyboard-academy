@@ -101,8 +101,8 @@ export const STAGE_6_SEEDS: LessonSeed[] = [
       { text: '云对雨，雪对风。', hint: '「，」按逗号键，「。」按句点键。' },
       { text: '花对树，鸟对虫。', hint: 'hua dui shu，niao dui chong。' },
       { text: '山对水，日对月。', hint: 'shan dui shui，ri dui yue，标点别漏。' },
-      { text: '云对雨，雪对风。山对水，日对月。花对树，鸟对虫。', hint: '六句连打，一句一句来。' },
       { text: '云对雨，雪对风。花对树，鸟对虫。', hint: '四句连打，标点别漏。' },
+      { text: '云对雨，雪对风。山对水，日对月。花对树，鸟对虫。', hint: '六句连打，一句一句来。' },
     ],
   },
   {
@@ -115,8 +115,8 @@ export const STAGE_6_SEEDS: LessonSeed[] = [
       { text: '春夏秋冬', hint: 'chun xia qiu dong。' },
       { text: '春风 夏雨', hint: 'chun feng xia yu。' },
       { text: '春花 秋月', hint: 'chun hua，qiu yue。' },
-      { text: '春风 夏雨 秋霜 冬雪', hint: '四个词连打，中间都空一格。' },
       { text: '秋霜 冬雪', hint: 'qiu shuang dong xue。' },
+      { text: '春风 夏雨 秋霜 冬雪', hint: '四个词连打，中间都空一格。' },
     ],
   },
 
