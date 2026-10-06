@@ -13,7 +13,7 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const REPO = process.env.PAGES_REPO ?? 'BestGunners/codekids-keyboard-academy'
+const REPO = process.env.PAGES_REPO ?? 'BestGunners/qiaoqiaodao'
 const BRANCH = process.argv[2] ?? 'main'
 const api = 'https://api.github.com'
 const TOKEN =

@@ -13,8 +13,8 @@ import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
-const REPO = process.env.PAGES_REPO ?? 'BestGunners/codekids-keyboard-academy'
-const BASE = process.env.PAGES_BASE ?? '/codekids-keyboard-academy/'
+const REPO = process.env.PAGES_REPO ?? 'BestGunners/qiaoqiaodao'
+const BASE = process.env.PAGES_BASE ?? '/qiaoqiaodao/'
 const BRANCH = process.env.PAGES_BRANCH ?? 'gh-pages'
 const api = 'https://api.github.com'
 

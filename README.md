@@ -1,4 +1,4 @@
-# CodeKids Keyboard Academy（键盘小侠）
+# 敲敲岛 Knock Knock Island
 
 面向 **6-10 岁儿童**的键盘盲打 + 编程启蒙网页应用：跟着 6 座岛、84 个关卡，从认识手指位置一路打到能写出会动的小游戏。
 

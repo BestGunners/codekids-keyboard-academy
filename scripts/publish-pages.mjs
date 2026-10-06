@@ -2,7 +2,7 @@
  * 一键把网站发布到 GitHub Pages（gh-pages 分支）。
  *
  * 做的事：
- * 1. 用子路径 base 构建（默认 /codekids-keyboard-academy/）
+ * 1. 用子路径 base 构建（默认 /qiaoqiaodao/）
  * 2. 给 dist 补上 404.html（前端路由回退）和 .nojekyll
  * 3. 用 git 直接把 dist 的内容推到 gh-pages 分支
  *
@@ -17,8 +17,8 @@ import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
-const REPO = process.env.PAGES_REPO ?? 'BestGunners/codekids-keyboard-academy'
-const BASE = process.env.PAGES_BASE ?? '/codekids-keyboard-academy/'
+const REPO = process.env.PAGES_REPO ?? 'BestGunners/qiaoqiaodao'
+const BASE = process.env.PAGES_BASE ?? '/qiaoqiaodao/'
 const BRANCH = 'gh-pages'
 const work = join(tmpdir(), 'codekids-pages-' + Date.now())
 

@@ -15,7 +15,7 @@ if (!container) {
   throw new Error('找不到 #root 挂载节点')
 }
 
-// 部署到子路径（比如 GitHub Pages 的 /codekids-keyboard-academy/）时，
+// 部署到子路径（比如 GitHub Pages 的 /qiaoqiaodao/）时，
 // 路由也要带上同样的前缀，否则直接访问 /map 这类地址会被弹回首页。
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
 

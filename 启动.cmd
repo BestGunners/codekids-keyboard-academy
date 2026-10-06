@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-title CodeKids Keyboard Academy
+title 敲敲岛 Knock Knock Island
 cd /d "%~dp0"
 
 if not exist "node_modules" (
