@@ -4,6 +4,7 @@
  * 注意：Node 环境没有 localStorage，控制台会出现 zustand persist 的提示，属于正常现象。
  */
 import { AGE_OPTIONS, ageBandOf, useChildStore } from '../src/store/childStore.ts'
+import { shouldPlayMusic } from '../src/engine/music.ts'
 import { useSettingsStore } from '../src/store/settingsStore.ts'
 
 let passed = 0
@@ -26,6 +27,17 @@ console.log('\n1. 声音设置')
   check('默认开启全局点击音效', settings.clickSoundsEnabled === true)
   check('默认音量 0.8', Math.abs(settings.volume - 0.8) < 1e-9, String(settings.volume))
   check('默认显示模拟键盘', settings.keyboardVisible === true)
+  check('默认开启背景音乐', settings.bgmEnabled === true)
+  check('背景音乐默认音量 0.35', Math.abs(settings.bgmVolume - 0.35) < 1e-9, String(settings.bgmVolume))
+
+  useSettingsStore.getState().toggleBgm()
+  check('背景音乐开关可以翻转', useSettingsStore.getState().bgmEnabled === false)
+  useSettingsStore.getState().toggleBgm()
+  useSettingsStore.getState().setBgmVolume(1.5)
+  check('音乐音量上限被限制为 1', useSettingsStore.getState().bgmVolume === 1)
+  useSettingsStore.getState().setBgmVolume(-1)
+  check('音乐音量下限被限制为 0', useSettingsStore.getState().bgmVolume === 0)
+  useSettingsStore.getState().setBgmVolume(0.35)
 
   useSettingsStore.getState().toggleKeyboard()
   check('模拟键盘开关可以翻转', useSettingsStore.getState().keyboardVisible === false)
@@ -48,6 +60,16 @@ console.log('\n1. 声音设置')
   setVolume(-1)
   check('音量下限被限制为 0', useSettingsStore.getState().volume === 0)
   setVolume(0.8)
+}
+
+console.log('\n1.5 背景音乐只在非打字页面播放')
+{
+  check('首页会播放', shouldPlayMusic('/') === true)
+  check('地图会播放', shouldPlayMusic('/map') === true)
+  check('排行榜会播放', shouldPlayMusic('/ranking') === true)
+  check('设置页会播放', shouldPlayMusic('/settings') === true)
+  check('打字关不播放', shouldPlayMusic('/lesson/s1-l01') === false)
+  check('带子路径前缀时也不播放', shouldPlayMusic('/qiaoqiaodao/lesson/s7-l03') === false)
 }
 
 console.log('\n2. 年龄与年龄段')

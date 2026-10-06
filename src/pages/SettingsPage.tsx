@@ -69,6 +69,10 @@ export default function SettingsPage() {
   const toggleSound = useSettingsStore((state) => state.toggleSound)
   const clickSoundsEnabled = useSettingsStore((state) => state.clickSoundsEnabled)
   const toggleClickSounds = useSettingsStore((state) => state.toggleClickSounds)
+const bgmEnabled = useSettingsStore((state) => state.bgmEnabled)
+const toggleBgm = useSettingsStore((state) => state.toggleBgm)
+const bgmVolume = useSettingsStore((state) => state.bgmVolume)
+const setBgmVolume = useSettingsStore((state) => state.setBgmVolume)
 
   const [nicknameDraft, setNicknameDraft] = useState(child?.nickname ?? '')
   const [avatarDraft, setAvatarDraft] = useState(child?.avatarId ?? AVATARS[0].id)
@@ -348,11 +352,51 @@ export default function SettingsPage() {
               if (!clickSoundsEnabled) sfx.tap()
             }}
           />
+          <ToggleRow
+            label="背景音乐"
+            description="只在首页、地图这些页面轻轻播放，打字练习时不播"
+            checked={bgmEnabled}
+            onChange={() => {
+              sfx.unlock()
+              toggleBgm()
+              if (!bgmEnabled) sfx.tap()
+            }}
+          />
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-extrabold">音乐音量</span>
+              <span className="text-sm font-extrabold text-brand-700">
+                {Math.round(bgmVolume * 100)}%
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Icon name="mute" size={16} className="text-ink-faint" />
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={Math.round(bgmVolume * 100)}
+                data-no-click-sound
+                aria-label="背景音乐音量"
+                onChange={(event) => {
+                  const next = Number(event.target.value) / 100
+                  setBgmVolume(next)
+                  if (next > 0 && !bgmEnabled) toggleBgm()
+                }}
+                className="h-2 flex-1 cursor-pointer accent-brand-500"
+              />
+              <Icon name="sound" size={16} className="text-ink-faint" />
+            </div>
+          </div>
+
           <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-surface-line bg-surface-muted px-3 py-2">
             <span className="text-xs font-bold text-ink-soft">
               音频状态：{audioStatus.state}
               （声音 {audioStatus.soundEnabled ? '开' : '关'} · 点击音效{' '}
-              {audioStatus.clickSounds ? '开' : '关'} · 音量 {Math.round(audioStatus.volume * 100)}%）
+              {audioStatus.clickSounds ? '开' : '关'} · 音效音量 {Math.round(audioStatus.volume * 100)}%
+              · 背景音乐 {bgmEnabled ? '开' : '关'} {Math.round(bgmVolume * 100)}%）
             </span>
             <button
               type="button"

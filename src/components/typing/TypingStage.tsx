@@ -116,14 +116,26 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
     return () => window.clearTimeout(timer)
   }, [session.lastStroke])
 
-  // 连击里程碑
+  // 连击里程碑：夸奖词弹出 1.5 秒后自己收起来，下一个里程碑还能再弹。
+  // 注意定时器放在 ref 里而不是 effect 的清理函数里——
+  // 之前每次继续击键都会把定时器清掉，导致提示一直挂在屏幕上不消失。
+  const celebrateTimer = useRef<number | null>(null)
   useEffect(() => {
     if (!isComboMilestone(streak)) return undefined
     sfx.combo(streak)
     setCelebration(comboCheer(streak))
-    const timer = window.setTimeout(() => setCelebration(null), 1100)
-    return () => window.clearTimeout(timer)
+    if (celebrateTimer.current) window.clearTimeout(celebrateTimer.current)
+    celebrateTimer.current = window.setTimeout(() => setCelebration(null), 1500)
+    return undefined
   }, [streak])
+
+  // 离开关卡时清掉定时器
+  useEffect(
+    () => () => {
+      if (celebrateTimer.current) window.clearTimeout(celebrateTimer.current)
+    },
+    [],
+  )
 
   // 敲到一个代码零件 → 舞台立刻演出并解释
   useEffect(() => {

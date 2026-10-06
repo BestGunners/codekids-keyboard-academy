@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { BackgroundMusic } from '@/components/fx/BackgroundMusic'
 import RequireChild from '@/components/layout/RequireChild'
 import { useGlobalClickSound } from '@/hooks/useGlobalClickSound'
 import HomePage from '@/pages/HomePage'
@@ -17,7 +18,10 @@ export default function App() {
   useGlobalClickSound()
 
   return (
-    <Routes>
+    <>
+      {/* 背景音乐：只在非打字页面播放，开关和音量都在设置里 */}
+      <BackgroundMusic />
+      <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
@@ -53,6 +57,7 @@ export default function App() {
         }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+      </Routes>
+    </>
   )
 }
