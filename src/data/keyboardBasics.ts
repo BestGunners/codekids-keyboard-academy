@@ -76,7 +76,6 @@ export const STAGE_KEYBOARD_BASICS: LessonSeed[] = [
     title: '双手都准备好了',
     subtitle: '把每根手指认全',
     kind: 'intro',
-    boss: true,
     focusChars: ['a', 's', 'd', 'f', 'j', 'k', 'l', ';'],
     targetWpm: 6,
     drills: [

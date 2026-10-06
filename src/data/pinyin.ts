@@ -236,6 +236,20 @@ export const PINYIN_BY_CHAR: Record<string, string> = {
   棕: 'zong',
   粉: 'fen',
   黑: 'hei',
+  // 加课新增的字
+  数: 'shu',
+  颜: 'yan',
+  六: 'liu',
+  七: 'qi',
+  八: 'ba',
+  九: 'jiu',
+  们: 'men',
+  和: 'he',
+  燕: 'yan',
+  真: 'zhen',
+  都: 'dou',
+  爱: 'ai',
+  回: 'hui',
 }
 
 /**

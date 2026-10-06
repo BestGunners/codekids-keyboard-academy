@@ -153,10 +153,9 @@ export const STAGE_2_TAIL: LessonSeed[] = [
     ],
   },
   {
-    title: '单词森林大挑战',
-    subtitle: '完成它，进入符号火山',
+    title: '句子练习',
+    subtitle: '把学过的单词连成句子',
     kind: 'words',
-    boss: true,
     focusChars: ['t', 'y', 'p', 'e', 'I'],
     targetWpm: 20,
     drills: [
@@ -290,10 +289,9 @@ export const STAGE_3_TAIL: LessonSeed[] = [
     ],
   },
   {
-    title: '符号火山大挑战',
-    subtitle: '完成它，进入代码工厂',
+    title: '符号综合练习',
+    subtitle: '把所有符号混着打一遍',
     kind: 'symbols',
-    boss: true,
     focusChars: ['(', ')', '{', '}', '<', '>', ';'],
     targetWpm: 11,
     drills: [

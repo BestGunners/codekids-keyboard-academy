@@ -281,9 +281,8 @@ export const STAGE_6_SEEDS: LessonSeed[] = [
   },
   {
     title: '短文·四季',
-    subtitle: '二年级短文（最后一关）',
+    subtitle: '二年级短文',
     kind: 'words',
-    boss: true,
     focusChars: ['c', 'y', 'h'],
     targetWpm: 7,
     drills: [

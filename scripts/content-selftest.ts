@@ -68,7 +68,7 @@ console.log('\n1. 每个板块都能一路玩下去')
   })
 
   check('所有岛都处于开放状态', STAGES.every((stage) => stage.available))
-  check('关卡总数为 90（键盘入门 6 关 + 5 个岛 64 关 + 中文岛 20 关）', lessons.length === 90, String(lessons.length))
+  check('关卡总数为 120（12 + 18×4 + 12 + 24）', lessons.length === 120, String(lessons.length))
   check('第一个板块是「认识键盘」', STAGES[0]?.id === 7 && STAGES[0]?.lessons[0]?.kind === 'intro', String(STAGES[0]?.title))
   check('第一个板块教的是键盘与手指（题量少、目标速度慢）', (STAGES[0]?.lessons.length ?? 0) >= 5 && (STAGES[0]?.lessons[0]?.targetWpm ?? 99) <= 7)
   check(

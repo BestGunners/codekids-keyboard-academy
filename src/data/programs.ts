@@ -1,5 +1,6 @@
 import type { SceneCounts } from '@/engine/cpp/interpreter'
 import { LESSON_PROGRAMS_CODE } from './programsCode.ts'
+import { LESSON_PROGRAMS_EXTRA } from './programsExtra.ts'
 
 export interface LessonProgram {
   /** 拼好的完整程序（孩子在关卡里已经一行一行敲过，这里直接给他看运行结果） */
@@ -23,6 +24,7 @@ export interface LessonProgram {
  */
 export const LESSON_PROGRAMS: Record<string, LessonProgram> = {
   ...LESSON_PROGRAMS_CODE,
+  ...LESSON_PROGRAMS_EXTRA,
 }
 
 export function getLessonProgram(lessonId: string): LessonProgram | undefined {

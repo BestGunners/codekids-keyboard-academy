@@ -177,10 +177,9 @@ export const STAGE_4_TAIL: LessonSeed[] = [
     ],
   },
   {
-    title: '代码工厂大挑战',
-    subtitle: '写一个完整的小程序',
+    title: '代码综合练习',
+    subtitle: '把学过的代码拼一拼',
     kind: 'code',
-    boss: true,
     focusChars: ['#', '<', '>', '{', '}', ';'],
     targetWpm: 8,
     drills: [
@@ -344,10 +343,9 @@ export const STAGE_5_TAIL: LessonSeed[] = [
     ],
   },
   {
-    title: '我的第一个小游戏',
+    title: '分数和星星',
     subtitle: '把标题、动画和分数拼起来',
     kind: 'game',
-    boss: true,
     focusChars: ['=', '"', '+', ';'],
     targetWpm: 9,
     drills: [

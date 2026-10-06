@@ -1,5 +1,14 @@
 import type { Drill, Lesson, LessonKind, Stage } from '@/types/course'
 import { STAGE_KEYBOARD_BASICS } from './keyboardBasics.ts'
+import {
+  EXTRA_1,
+  EXTRA_2,
+  EXTRA_3,
+  EXTRA_4,
+  EXTRA_5,
+  EXTRA_6,
+  EXTRA_7,
+} from './extraLessons.ts'
 import { STAGE_2_TAIL, STAGE_3_TAIL } from './coursesExtra.ts'
 import { STAGE_4_SEEDS, STAGE_4_TAIL, STAGE_5_SEEDS, STAGE_5_TAIL } from './codeLessons.ts'
 import { STAGE_6_SEEDS } from './chineseLessons.ts'
@@ -110,7 +119,7 @@ const STAGE_1_SEEDS: LessonSeed[] = [
     targetWpm: 8,
     drills: [
       { text: 'as as df df jk jk l; l;', hint: '每两个键一组，像拍手一样有节拍。' },
-      { text: 'asdf jkl; fdsa ;lkj', hint: '正着打、倒着打，各来一遍。' },
+      { text: 'asdf fdsa jkl; ;lkj', hint: '正着打、倒着打，各来一遍。' },
       { text: 'a s d f j k l ;', hint: '一个一个慢慢来，重点是不看键盘。' },
     ],
   },
@@ -175,10 +184,9 @@ const STAGE_1_SEEDS: LessonSeed[] = [
     ],
   },
   {
-    title: '阶段大挑战',
-    subtitle: '完成它，你就把基准行练熟了',
+    title: '中排大检验',
+    subtitle: '把基准行练到不用想',
     kind: 'words',
-    boss: true,
     focusChars: ['a', 's', 'd', 'f', 'j', 'k', 'l'],
     targetWpm: 9,
     drills: [
@@ -277,7 +285,12 @@ export const STAGES: Stage[] = [
     emoji: '⌨️',
     gradient: 'from-brand-400/70 to-candy-mint/70',
     available: true,
-    lessons: STAGE_KEYBOARD_BASICS.map((seed, index) => buildLesson(7, index + 1, seed)),
+    lessons: [
+      ...STAGE_KEYBOARD_BASICS.map((seed, index) => buildLesson(7, index + 1, seed)),
+      ...EXTRA_7.map((seed, index) =>
+        buildLesson(7, STAGE_KEYBOARD_BASICS.length + index + 1, seed),
+      ),
+    ],
   },
   {
     id: 1,
@@ -289,6 +302,9 @@ export const STAGES: Stage[] = [
     available: true,
     lessons: [
       ...STAGE_1_SEEDS.map((seed, index) => buildLesson(1, index + 1, seed)),
+      ...EXTRA_1.map((seed, index) =>
+        buildLesson(1, STAGE_1_SEEDS.length + index + 1, seed),
+      ),
     ],
   },
   {
@@ -302,6 +318,9 @@ export const STAGES: Stage[] = [
     lessons: [
       ...STAGE_2_SEEDS.map((seed, index) => buildLesson(2, index + 1, seed)),
       ...STAGE_2_TAIL.map((seed, index) => buildLesson(2, STAGE_2_SEEDS.length + index + 1, seed)),
+      ...EXTRA_2.map((seed, index) =>
+        buildLesson(2, STAGE_2_SEEDS.length + STAGE_2_TAIL.length + index + 1, seed),
+      ),
     ],
   },
   {
@@ -315,6 +334,9 @@ export const STAGES: Stage[] = [
     lessons: [
       ...STAGE_3_SEEDS.map((seed, index) => buildLesson(3, index + 1, seed)),
       ...STAGE_3_TAIL.map((seed, index) => buildLesson(3, STAGE_3_SEEDS.length + index + 1, seed)),
+      ...EXTRA_3.map((seed, index) =>
+        buildLesson(3, STAGE_3_SEEDS.length + STAGE_3_TAIL.length + index + 1, seed),
+      ),
     ],
   },
   {
@@ -328,6 +350,9 @@ export const STAGES: Stage[] = [
     lessons: [
       ...STAGE_4_SEEDS.map((seed, index) => buildLesson(4, index + 1, seed)),
       ...STAGE_4_TAIL.map((seed, index) => buildLesson(4, STAGE_4_SEEDS.length + index + 1, seed)),
+      ...EXTRA_4.map((seed, index) =>
+        buildLesson(4, STAGE_4_SEEDS.length + STAGE_4_TAIL.length + index + 1, seed),
+      ),
     ],
   },
   {
@@ -341,6 +366,9 @@ export const STAGES: Stage[] = [
     lessons: [
       ...STAGE_5_SEEDS.map((seed, index) => buildLesson(5, index + 1, seed)),
       ...STAGE_5_TAIL.map((seed, index) => buildLesson(5, STAGE_5_SEEDS.length + index + 1, seed)),
+      ...EXTRA_5.map((seed, index) =>
+        buildLesson(5, STAGE_5_SEEDS.length + STAGE_5_TAIL.length + index + 1, seed),
+      ),
     ],
   },
   {
@@ -353,6 +381,9 @@ export const STAGES: Stage[] = [
     available: true,
     lessons: [
       ...STAGE_6_SEEDS.map((seed, index) => buildLesson(6, index + 1, seed)),
+      ...EXTRA_6.map((seed, index) =>
+        buildLesson(6, STAGE_6_SEEDS.length + index + 1, seed),
+      ),
     ],
   },
 ]

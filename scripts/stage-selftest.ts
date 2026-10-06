@@ -134,8 +134,8 @@ console.log('\n5. 岛 5 每一关都能画出画面')
   const programIds = getProgramLessonIds()
   const stageIds = programIds.filter((id) => LESSON_PROGRAMS[id].stage)
 
-  check('岛 5 的 10 关都有可运行程序', lessons.filter((lesson) => lesson.stageId === 5).every((lesson) => programIds.includes(lesson.id)))
-  check('岛 5 的程序都标记为舞台关卡', stageIds.length === 10, String(stageIds.length))
+  check('岛 5 的 12 关都有可运行程序', lessons.filter((lesson) => lesson.stageId === 5).every((lesson) => programIds.includes(lesson.id)))
+  check('岛 5 的程序都标记为舞台关卡', stageIds.length === 12, String(stageIds.length))
   check('岛 4 的程序不显示舞台', programIds.filter((id) => LESSON_PROGRAMS[id].stage !== true).every((id) => (byId.get(id)?.stageId ?? 0) === 4))
   check('每个舞台关卡都写了期望画面', stageIds.every((id) => LESSON_PROGRAMS[id].expectedScene !== undefined))
 
