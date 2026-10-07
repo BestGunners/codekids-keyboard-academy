@@ -63,7 +63,11 @@ export function TextStream({
         // 固定高度：不管这一题有多长，下面的键盘都不会被顶来顶去；
         // 有拼音行（中文岛）时留得更高一点，拼音放大后也不会被裁掉
         'flex flex-wrap content-center items-end justify-center gap-x-1 gap-y-1 overflow-hidden rounded-kid border border-surface-line bg-white px-5 py-4 font-extrabold leading-tight shadow-[0_1px_2px_rgba(18,32,58,0.04)]',
-        hasPinyinRow ? 'h-[176px] sm:h-[252px]' : 'h-[164px]',
+        hasPinyinRow
+          ? 'h-[176px] sm:h-[252px]'
+          : text.length > 30
+            ? 'h-[196px] sm:h-[236px]'
+            : 'h-[164px]',
         text.length > 28 ? 'text-3xl' : text.length > 18 ? 'text-4xl' : 'text-4xl sm:text-5xl',
         variant === 'code' ? 'font-mono tracking-tight' : 'tracking-wide',
       )}

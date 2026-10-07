@@ -6,6 +6,8 @@ export interface FingerHintProps {
   char: string | null
   level: 0 | 1 | 2 | 3 | 4
   onSkip?: () => void
+  /** 没有目标键时显示的文案（进阶关用） */
+  message?: string
   className?: string
 }
 
@@ -13,7 +15,7 @@ export interface FingerHintProps {
  * 手指提示（紧凑版）：一行放下键帽、手指颜色、双手示意图和跳过按钮。
  * 提示强度随连续错误自动升级，连续错 5 次时让孩子先跳过这个键。
  */
-export function FingerHint({ char, level, onSkip, className }: FingerHintProps) {
+export function FingerHint({ char, level, onSkip, message, className }: FingerHintProps) {
   const info = char ? describeChar(char) : null
   const color = info?.finger?.color ?? '#cbd5e1'
 
@@ -62,7 +64,7 @@ export function FingerHint({ char, level, onSkip, className }: FingerHintProps) 
           ) : null}
         </>
       ) : (
-        <span className="text-xs font-extrabold text-ink-soft">准备好了就开始吧</span>
+        <span className="text-xs font-extrabold text-ink-soft">{message ?? '准备好了就开始吧'}</span>
       )}
     </div>
   )

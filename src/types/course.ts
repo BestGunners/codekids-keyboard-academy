@@ -28,6 +28,8 @@ export interface Lesson {
   ready: boolean
   /** 小 boss 关，需要 2 星才解锁下一区块 */
   boss?: boolean
+  /** 进阶关卡：一个拼音提示都不给，孩子自己拼（课文长句岛用） */
+  hidePinyin?: boolean
   drills: Drill[]
 }
 

@@ -68,7 +68,16 @@ console.log('\n1. 每个板块都能一路玩下去')
   })
 
   check('所有岛都处于开放状态', STAGES.every((stage) => stage.available))
-  check('关卡总数为 120（12 + 18×4 + 12 + 24）', lessons.length === 120, String(lessons.length))
+  check('关卡总数为 126（12 + 18×4 + 12 + 24 + 6）', lessons.length === 126, String(lessons.length))
+  check('第 8 个板块是「不给拼音」的课文长句', STAGES[7]?.lessons.every((lesson) => lesson.hidePinyin === true))
+  check(
+    '课文长句岛的句子确实更长',
+    (STAGES[7]?.lessons ?? []).flatMap((lesson) => lesson.drills).some((drill) => drill.text.length > 34),
+  )
+  check(
+    '只有课文长句岛不给拼音',
+    STAGES.filter((stage) => stage.id !== 8).every((stage) => stage.lessons.every((lesson) => !lesson.hidePinyin)),
+  )
   check('第一个板块是「认识键盘」', STAGES[0]?.id === 7 && STAGES[0]?.lessons[0]?.kind === 'intro', String(STAGES[0]?.title))
   check('第一个板块教的是键盘与手指（题量少、目标速度慢）', (STAGES[0]?.lessons.length ?? 0) >= 5 && (STAGES[0]?.lessons[0]?.targetWpm ?? 99) <= 7)
   check(
@@ -106,10 +115,19 @@ console.log('\n3. 每道题都能真的敲出来')
   const allDrills = lessons.flatMap((lesson) => lesson.drills)
   check('题目总数足够', allDrills.length >= 180, String(allDrills.length))
   check('没有空题目', allDrills.every((drill) => drill.text.trim().length > 0))
+  // 课文长句岛（第 8 岛）是进阶内容，允许更长的句子，其它岛仍然不超过 34 字
+  const longDrillIds = new Set(
+    lessons
+      .filter((lesson) => lesson.stageId === 8)
+      .flatMap((lesson) => lesson.drills.map((drill) => drill.id)),
+  )
+  const tooLongDrills = allDrills.filter((drill) =>
+    longDrillIds.has(drill.id) ? drill.text.length > 52 : drill.text.length > 34,
+  )
   check(
-    '题目不会太长（≤ 34 字符）',
-    allDrills.every((drill) => drill.text.length <= 34),
-    allDrills.filter((drill) => drill.text.length > 34).map((drill) => drill.text).join(' | '),
+    '题目长度合适（普通关 ≤ 34 字，课文长句岛 ≤ 52 字）',
+    tooLongDrills.length === 0,
+    tooLongDrills.map((drill) => drill.text).join(' | '),
   )
   check('每道题都有提示', allDrills.every((drill) => (drill.hint ?? '').length > 3))
 

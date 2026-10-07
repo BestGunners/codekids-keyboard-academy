@@ -90,6 +90,8 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
   const session = useTypingSession({ text: drill.text, onComplete: handleComplete })
   // 中文段落时，这里给出的是要敲的拼音字母（拼音打完是空格）
   const targetChar = session.expectedKey
+  // 课文长句岛是进阶关：不给拼音、不点亮按键，全靠孩子自己拼
+  const revealPinyin = !lesson.hidePinyin
   const streak = session.state.streak
 
   useEffect(() => {
@@ -208,12 +210,12 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
             statuses={session.state.statuses}
             cursor={session.state.cursor}
             variant={hasStage ? 'code' : 'kid'}
-            segments={session.state.segments}
-            pinyinTyped={session.state.pinyinTyped}
+            segments={revealPinyin ? session.state.segments : []}
+            pinyinTyped={revealPinyin ? session.state.pinyinTyped : ''}
           />
 
           <div className="mt-3">
-            <PinyinBar task={session.pinyinTask} />
+            <PinyinBar task={session.pinyinTask} hideHints={!revealPinyin} onSkip={session.skip} />
           </div>
 
           <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -254,9 +256,10 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
 
       <div className="flex flex-wrap items-center gap-2">
         <FingerHint
-          char={targetChar}
+          char={revealPinyin ? targetChar : null}
           level={session.hintLevel}
           onSkip={session.skip}
+          message={revealPinyin ? undefined : '靠自己把拼音敲出来，想不起来可以先跳过'}
           className="min-w-0 flex-1"
         />
         <Switch checked={keyboardVisible} onChange={toggleKeyboard} label="模拟键盘" />
@@ -280,7 +283,11 @@ export function TypingStage({ lesson, child, onFinish }: TypingStageProps) {
       {keyboardVisible ? (
         <Card className="space-y-2 p-2">
           {showHands ? <KeyboardHands targetChar={targetChar} /> : null}
-          <VirtualKeyboard targetChar={targetChar} lastStroke={session.lastStroke} size="sm" />
+          <VirtualKeyboard
+            targetChar={revealPinyin ? targetChar : null}
+            lastStroke={session.lastStroke}
+            size="sm"
+          />
         </Card>
       ) : null}
 

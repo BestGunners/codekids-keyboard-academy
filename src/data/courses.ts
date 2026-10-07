@@ -1,4 +1,5 @@
 import type { Drill, Lesson, LessonKind, Stage } from '@/types/course'
+import { STAGE_8_SEEDS } from './textbookLessons.ts'
 import { STAGE_KEYBOARD_BASICS } from './keyboardBasics.ts'
 import {
   EXTRA_1,
@@ -30,6 +31,8 @@ export interface LessonSeed {
   focusChars: string[]
   targetWpm: number
   boss?: boolean
+  /** 进阶关卡：不显示拼音提示 */
+  hidePinyin?: boolean
   drills: DrillEntry[]
 }
 
@@ -45,6 +48,7 @@ function buildLesson(stageId: number, order: number, seed: LessonSeed, ready = t
     focusChars: seed.focusChars,
     targetWpm: seed.targetWpm,
     boss: seed.boss,
+    hidePinyin: seed.hidePinyin,
     ready,
     drills: makeDrills(id, seed.drills),
   }
@@ -385,5 +389,16 @@ export const STAGES: Stage[] = [
         buildLesson(6, STAGE_6_SEEDS.length + index + 1, seed),
       ),
     ],
+  },
+  {
+    // 第 8 个板块：只打课文长句，一个拼音提示都不给
+    id: 8,
+    code: 'textbook-sentences',
+    title: '课文长句',
+    subtitle: '不给拼音，靠自己把整句话打出来',
+    emoji: '📖',
+    gradient: 'from-ember-300/70 to-candy-orange/70',
+    available: true,
+    lessons: STAGE_8_SEEDS.map((seed, index) => buildLesson(8, index + 1, seed)),
   },
 ]
