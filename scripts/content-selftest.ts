@@ -68,12 +68,21 @@ console.log('\n1. 每个板块都能一路玩下去')
   })
 
   check('所有岛都处于开放状态', STAGES.every((stage) => stage.available))
-  check('关卡总数为 126（12 + 18×4 + 12 + 24 + 6）', lessons.length === 126, String(lessons.length))
+  check('关卡总数为 132（12 + 18×4 + 12 + 24 + 12）', lessons.length === 132, String(lessons.length))
   check('第 8 个板块是「不给拼音」的课文长句', STAGES[7]?.lessons.every((lesson) => lesson.hidePinyin === true))
+  check('课文长句岛有 12 关', STAGES[7]?.lessons.length === 12, String(STAGES[7]?.lessons.length))
   check(
-    '课文长句岛的句子确实更长',
-    (STAGES[7]?.lessons ?? []).flatMap((lesson) => lesson.drills).some((drill) => drill.text.length > 34),
+    '课文长句岛每关至少 4 句',
+    (STAGES[7]?.lessons ?? []).every((lesson) => lesson.drills.length >= 4),
   )
+  {
+    // 「不要重复」：整岛每一句都不允许和别的句子一样
+    const stage8Drills = (STAGES[7]?.lessons ?? []).flatMap((lesson) =>
+      lesson.drills.map((drill) => drill.text),
+    )
+    const uniqueTexts = new Set(stage8Drills)
+    check('课文长句岛没有重复的句子', uniqueTexts.size === stage8Drills.length, String(stage8Drills.length) + ' 句里只有 ' + uniqueTexts.size + ' 句不同')
+  }
   check(
     '只有课文长句岛不给拼音',
     STAGES.filter((stage) => stage.id !== 8).every((stage) => stage.lessons.every((lesson) => !lesson.hidePinyin)),
